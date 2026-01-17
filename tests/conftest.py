@@ -9,7 +9,7 @@ def page():
         context = browser.new_context()
         page = context.new_page()
 
-        # Дадим побольше времени ожиданиям (60 секунд)
+        # таймаут на ожидания 60 секунд
         page.set_default_timeout(60000)
 
         yield page
@@ -20,8 +20,6 @@ def page():
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    # Этот хук запускается после каждого шага теста.
-    # Если тест упал — мы сохраним скриншот.
     outcome = yield
     rep = outcome.get_result()
 
